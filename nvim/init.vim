@@ -52,9 +52,3 @@ let g:UltiSnipsSnippetDirectories=[$HOME . '/.config/nvim/UltiSnips']
 let g:UltiSnipsExpandTrigger='<tab>'
 let g:UltiSnipsJumpForwardTrigger='<tab>'
 let g:UltiSnipsJumpBackwardTrigger='<s-tab>'
-
-" Auto save
-" augroup autosave
-"     autocmd!
-"     autocmd TextChanged,TextChangedI <buffer> silent! write
-" augroup END
