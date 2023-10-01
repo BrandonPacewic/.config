@@ -1,0 +1,295 @@
+global !p
+def math():
+    return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+endglobal
+
+snippet template "Basic Template" b
+% Copyright (c) Brandon Pacewic
+% SPDX-License-Identifier: MIT
+
+\documentclass[a4paper]{report}
+\input{preamble}
+
+\title{\Huge{$1}\\\\$2}
+\author{\huge{Brandon Pacewic}}
+\date{$3}
+
+\begin{document}
+
+\maketitle
+$4\tableofcontents
+\newpage
+\pagebreak
+
+$0
+
+\end{document}
+endsnippet
+
+snippet mathhw "Math Homework Template" b
+\documentclass[a4paper]{report}
+\input{preamble}
+
+\pagestyle{fancy}
+\lhead{$1}
+\rhead{$2}
+
+\begin{document}
+
+\begin{center}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        First Name & Last Name & OSU Student ID \# \\\\
+        \hline
+        Brandon & Pacewic & 934 509 933 \\\\
+        \hline
+    \end{tabular}
+\end{center}
+
+$0
+
+\end{document}
+endsnippet
+
+snippet beg "begin{} / end{}" bA
+\begin{$1}
+    $2
+\end{$1}$0
+endsnippet
+
+snippet section "Section" bA
+\section{$1}
+$0
+endsnippet
+
+snippet subsection "Subsection" bA
+\subsection{$1}
+$0
+endsnippet
+
+snippet ftnt "Footnote" w
+\footnote{\label{$1}$2}$0
+endsnippet
+
+snippet ref "Reference" w
+\ref{$1}$0
+endsnippet
+
+snippet itms "Itemize" bA
+\begin{itemize}
+    \item ${1}
+\end{itemize}${0}
+endsnippet
+
+snippet enums "Enumerate" bA
+\begin{enumerate}[$1]
+    \item ${2}
+\end{enumerate}
+endsnippet
+
+snippet item "Item" w
+\item
+endsnippet
+
+snippet ali "Align" w
+\begin{align*}
+    $1
+\end{align*}$0
+endsnippet
+
+snippet nl "New Line" w
+\\\\
+endsnippet
+
+snippet bf "Bold" w
+\textbf{$1}$0
+endsnippet
+
+snippet it "Italic" w
+\textit{$1}$0
+endsnippet
+
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+snippet dm "Math" wA
+\[
+    $1
+\]$0
+endsnippet
+
+context "math()"
+snippet // "Fraction" iA
+\dfrac{$1}{$2}$0
+endsnippet
+
+snippet / "Fraction" i
+\\dfrac{${VISUAL}}{$1}$0
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])(\d)' "auto subscript" wrA
+`!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
+endsnippet
+
+context "math()"
+snippet '([A-Za-z])_(\d\d)' "auto subscript 2" wrA
+`!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
+endsnippet
+
+snippet == "equals" iA
+&=$1 \\\\
+endsnippet
+
+snippet != "equals" iA
+\neq 
+endsnippet
+
+context "math()"
+snippet sum "sum" w
+\sum_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
+endsnippet
+
+context "math()"
+snippet lim "limit" w
+\lim_{${1:n} \to ${2:\infty}} 
+endsnippet
+
+context "math()"
+snippet int "integral" w
+\int_{${1:a}}^{${2:b}} ${3:f(x)} \,dx
+endsnippet
+
+context "math()"
+snippet sq "\sqrt{}" iA
+\sqrt{${1:${VISUAL}}}$0
+endsnippet
+
+context "math()"
+snippet sr "^2" iA
+^2
+endsnippet
+
+context "math()"
+snippet cb "^3" iA
+^3
+endsnippet
+
+context "math()"
+snippet td "to the ... power" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet >= "greater than or equal to" iA
+\geq
+endsnippet
+
+context "math()"
+snippet <= "less than or equal to" iA
+\leq
+endsnippet
+
+context "math()"
+snippet abs "absolute value" iA
+\lvert ${1:${VISUAL}} \rvert
+endsnippet
+
+snippet ++ "plus or minus" iA
+\pm
+endsnippet
+
+context "math()"
+snippet -> "to" iA
+\to
+endsnippet
+
+context "math()"
+snippet <-> "left right arrow" iA
+\leftrightarrow
+endsnippet
+
+snippet ooo "\infty" iA
+\infty
+endsnippet
+
+snippet lft "Left" w
+\left
+endsnippet
+
+snippet rit "Right" w
+\right
+endsnippet
+
+snippet beta "Beta" iA
+\beta
+endsnippet
+
+snippet alpha "Alpha" iA
+\alpha
+endsnippet
+
+snippet gamma "Gamma" iA
+\gamma
+endsnippet
+
+snippet delta "Delta" iA
+\delta
+endsnippet
+
+snippet sympy "sympy block " w
+    sympy $1 sympy$0
+endsnippet
+    
+priority 10000
+snippet 'sympy(.*)sympy' "evaluate sympy" wr
+`!p
+from sympy import *
+x, y, z, t = symbols('x y z t')
+k, m, n = symbols('k m n', integer=True)
+f, g, h = symbols('f g h', cls=Function)
+init_printing()
+snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
+    .replace('^', '**') \
+    .replace('{', '(') \
+    .replace('}', ')') + ')')
+`
+endsnippet
+
+snippet plot "Plot / Graph" w
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}
+            \addplot[domain=$1:$2, samples=${5:100}, color=${6:black}]{$7};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{$8}
+\end{figure}$0
+endsnippet
+
+snippet plotad "Plot / Graph (Advanced)" w
+\begin{figure}[!ht]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            xmin= ${1:-10}, xmax= ${2:10},
+            ymin= ${3:-10}, ymax = ${4:10},
+            axis lines = middle,
+        ]
+            \addplot[domain=$1:$2, samples=${5:100}, color=${6:black}]{$7};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{$8}
+\end{figure}$0
+endsnippet
+
+snippet aplt "Add plot" w
+\addplot[domain=$1:$2, samples=${3:100}, color=${4:black}]{$5};$0
+endsnippet

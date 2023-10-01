@@ -1,0 +1,3 @@
+set recolor true
+set scroll-step 0.5
+set adjust-open "best-fit"
