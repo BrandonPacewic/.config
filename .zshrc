@@ -19,15 +19,11 @@ POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir rbenv vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
-alias updatesource='source ~/.zshrc'
 alias vi='nvim "$@"'
 alias cp='cp -v'
 alias rm='rm -iv'
 alias mv='mv -iv'
 alias rmdir='rm -vrf'
-alias gitclean='git clean -xdf'
-alias gitca='git commit --amend --no-edit'
-alias repos='cd ~/Documents/Repos'
 
 alias ll='ls -la'
 alias la='ls -A'
