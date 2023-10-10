@@ -168,7 +168,23 @@ endsnippet
 
 context "math()"
 snippet sq "\sqrt{}" iA
-\sqrt{${1:${VISUAL}}}$0
+\sqrt[${1:2}]{${2:${VISUAL}}}$0
+endsnippet
+
+priority 10000
+context "math()"
+snippet 'sqrt\[(\d)\]{(.*)}' "smart sqrt" wrA
+`!p
+if match.group(1) == '2':
+    snip.rv = 'sqrt{' + match.group(2) + '}'
+else:
+    snip.rv = 'sqrt[' + match.group(1) + ']{' + match.group(2) + '}'
+`
+endsnippet
+
+context "math()"
+snippet ov "\overline{}" iA
+\overline{${1:${VISUAL}}}$0
 endsnippet
 
 context "math()"
@@ -246,7 +262,7 @@ endsnippet
 snippet sympy "sympy block " w
     sympy $1 sympy$0
 endsnippet
-    
+
 priority 10000
 snippet 'sympy(.*)sympy' "evaluate sympy" wr
 `!p
