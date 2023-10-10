@@ -6,7 +6,7 @@ ENABLE_CORRECTION="true"
 COMPLETION_WAITING_DOTS="true"
 
 source $ZSH/oh-my-zsh.sh
-export EDITIOR="code"
+export EDITIOR="nvim"
 
 plugins=(
 	git
