@@ -126,11 +126,18 @@ endsnippet
 
 context "math()"
 snippet // "Fraction" iA
-\dfrac{$1}{$2}$0
+\frac{$1}{$2}$0
 endsnippet
 
-snippet / "Fraction" i
-\\dfrac{${VISUAL}}{$1}$0
+priority 10000
+context "math()"
+snippet 'frac\{(.*)\}\{(.*)\}' "smart fraction" wrA
+`!p
+if len(match.group(1)) > 3 or len(match.group(2)) > 3:
+    snip.rv = 'dfrac{' + match.group(1) + '}{' + match.group(2) + '}'
+else:
+    snip.rv = 'frac{' + match.group(1) + '}{' + match.group(2) + '}'
+`
 endsnippet
 
 context "math()"
@@ -260,7 +267,7 @@ snippet delta "Delta" iA
 endsnippet
 
 snippet sympy "sympy block " w
-    sympy $1 sympy$0
+sympy $1 sympy$0
 endsnippet
 
 priority 10000
