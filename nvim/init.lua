@@ -102,3 +102,10 @@ vim.g['UltiSnipsSnippetDirectories'] = { '~/.config/nvim/UltiSnips' }
 vim.g['UltiSnipsExpandTrigger'] = '<tab>'
 vim.g['UltiSnipsJumpForwardTrigger'] = '<tab>'
 vim.g['UltiSnipsJumpBackwardTrigger'] = '<s-tab>'
+
+vim.opt.ignorecase = true
+vim.opt.hlsearch = false
+
+vim.opt.wrap = true
+vim.opt.breakindent = true
+
