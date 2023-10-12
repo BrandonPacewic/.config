@@ -60,6 +60,16 @@ local function plugins(use)
     use { "lervag/vimtex" }
     use { "sirver/ultisnips" }
 
+    use { "nvim-treesitter/nvim-treesitter" }
+
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.4',
+        requires = { 
+            { 'nvim-lua/plenary.nvim' },
+            { 'nvim-telescope/telescope-file-browser.nvim' },
+        },
+    }
+
     if packer_bootstrap then
         print "Restart Neovim required"
         require("packer").sync()
@@ -71,6 +81,8 @@ packer_init()
 local packer = require "packer"
 packer.init(config)
 packer.startup(plugins)
+
+vim.g.mapleader = ' '
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -109,3 +121,6 @@ vim.opt.hlsearch = false
 vim.opt.wrap = true
 vim.opt.breakindent = true
 
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.git_files, {})
