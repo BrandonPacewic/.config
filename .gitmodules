@@ -1,0 +1,3 @@
+[submodule "ProblemManager"]
+	path = ProblemManager
+	url = https://github.com/BrandonPacewic/ProblemManager.git

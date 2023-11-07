@@ -1,10 +1,15 @@
+#!/bin/bash
+
 # Run this install script to setup global commands and move other files to their required directories.
 
-read -r -p "This script requires root permissions, please acknowledge that it is being run as root. [y|n]: "
-if ! [[ $REPLY =~ ^[Yy]$ ]]; then
-    echo "Aborting"
-    exit 1
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root."
+  exit
 fi
+
+git submodule update --init --recursive
+
+sudo ./ProblemManager/install.sh
 
 if ! [[ -f "../.zshrc" ]]; then
     ln .zshrc ../.zshrc
