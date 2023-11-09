@@ -15,6 +15,10 @@ if ! [[ -f "../.zshrc" ]]; then
     ln .zshrc ../.zshrc
 fi
 
+if ! [[ -f "../.tmux.conf" ]]; then
+    ln .tmux.conf ../.tmux.conf
+fi
+
 for file in "scripts"/*; do
     if [[ -f "$file" ]]; then
         filename=$(basename "$file")

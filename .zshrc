@@ -33,6 +33,10 @@ command -v lsd > /dev/null && alias ls='lsd --group-dirs first' && \
 command -v colorls > /dev/null && alias ls='colorls --sd --gs' && \
 	alias tree='colorls --tree'
 
+if command -v tmux &> /dev/null && [[ -z "$TMUX" ]]; then
+	tmux attach -t default || tmux new -s default
+fi
+
 export DOTNET_ROOT=$HOME/.dotnet
 export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
 export PATH="$HOME/Library/Python/3.11/bin:$PATH"
