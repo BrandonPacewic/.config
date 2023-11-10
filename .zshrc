@@ -50,6 +50,7 @@ command -v colorls > /dev/null && alias ls='colorls --sd --gs' && \
 	alias tree='colorls --tree'
 
 alias tmr='tmux respawn-pane -k'
+alias tmka='tmux kill-session'
 
 if command -v tmux &> /dev/null && [[ -z "$TMUX" ]]; then
 	tmux attach -t default || tmux new -s default
