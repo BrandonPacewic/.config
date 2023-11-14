@@ -81,11 +81,20 @@ command -v colorls > /dev/null && alias ls='colorls --sd --gs' && \
 	alias tree='colorls --tree'
 
 alias tmr='tmux respawn-pane -k'
-alias tmka='tmux kill-session'
+alias tmka='tmux kill-server'
+alias tmo='tmux detach'
 
 if command -v tmux &> /dev/null && [[ -z "$TMUX" ]]; then
 	tmux attach -t default || tmux new -s default
 fi
+
+tmn() {
+	if [[ $# = 0 ]]; then
+		tmux attach -t default || tmux new -s default
+	else
+		tmux new -s "$@"
+	fi
+}
 
 find() {
 	if [[ $# = 1 ]]; then
@@ -99,3 +108,5 @@ clear() {
 	command clear
 	command neofetch
 }
+
+neofetch
