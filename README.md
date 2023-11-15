@@ -2,6 +2,13 @@
 
 My OSX config files.
 
+<p align="center">
+    <img src="images/terminal1.png" width="49.5%"/>
+    <img src="images/terminal2.png" width="49.5%"/>
+</p>
+
+<img src="images/nvim.png">
+
 ## Installing
 
 ```
