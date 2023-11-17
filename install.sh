@@ -19,6 +19,10 @@ if ! [[ -f "../.tmux.conf" ]]; then
     ln .tmux.conf ../.tmux.conf
 fi
 
+if ! [[ -f "../.gitconfig" ]]; then
+    ln git/.gitconfig ../.gitconfig
+fi
+
 for file in "scripts"/*; do
     if [[ -f "$file" ]]; then
         filename=$(basename "$file")

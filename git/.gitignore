@@ -1,0 +1,12 @@
+# Global git ignores
+
+# MacOS
+.DS_Store
+
+# Test files
+[Nn]otes.txt
+[Tt]est.*
+
+# Visual Studio
+.vs/
+.vscode/
