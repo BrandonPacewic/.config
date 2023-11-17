@@ -11,3 +11,5 @@
 	directory = /Users/brandon/.config/ProblemManager/DebugAndRun
 	directory = /Users/brandon/.config/ProblemManager/TestSamples
 	directory = /Users/brandon/.config/ProblemManager/TemplateGenerator
+[advice]
+	statusHints = false
