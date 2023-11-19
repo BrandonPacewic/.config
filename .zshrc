@@ -104,6 +104,23 @@ find() {
 	fi
 }
 
+btt() {
+	if ! (( $+commands[blueutil] )); then
+		echo "blueutil not found"
+		return 1
+	fi
+
+	power_status=$(blueutil | awk '/Power:/ {print $2}')
+
+	if [[ $power_status -eq 0 ]]; then
+		blueutil -p 1
+		echo "Bluetooth turned on"
+	else
+		blueutil -p 0
+		echo "Bluetooth turned off"
+	fi
+}
+
 clear() {
 	command clear
 	command neofetch
