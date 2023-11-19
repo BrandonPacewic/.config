@@ -110,7 +110,7 @@ vim.g['vimtex_quickfix_mode'] = 0
 vim.g['vimtex_syntax_enabled'] = 1
 vim.g['tex_conceal'] = 'abdmg'
 
-vim.g['UltiSnipsSnippetDirectories'] = { '~/.config/nvim/UltiSnips' }
+vim.g['UltiSnipsSnippetDirectories'] = { '~/.config/nvim/snippets' }
 vim.g['UltiSnipsExpandTrigger'] = '<tab>'
 vim.g['UltiSnipsJumpForwardTrigger'] = '<tab>'
 vim.g['UltiSnipsJumpBackwardTrigger'] = '<s-tab>'
