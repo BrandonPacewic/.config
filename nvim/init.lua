@@ -68,6 +68,12 @@ local function plugins(use)
     use { "nvim-treesitter/nvim-treesitter" }
     use { "nvim-telescope/telescope.nvim" }
 
+    -- Session manager
+    use { "Shatur/neovim-session-manager" }
+
+    -- Command menu
+    use { "folke/which-key.nvim" }
+
     if packer_bootstrap then
         print "Restart Neovim required"
         require("packer").sync()
@@ -91,7 +97,7 @@ vim.opt.mouse = "a"
 
 vim.opt.syntax = "on"
 
-vim.opt.updatetime = 300
+vim.opt.updatetime = 50
 
 vim.opt.encoding = "utf-8"
 
@@ -136,3 +142,79 @@ require("telescope").setup {
 local telescope_builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files)
 vim.keymap.set("n", "<leader>lg", telescope_builtin.live_grep)
+
+-- Session manager settings
+local Path = require("plenary.path")
+
+require("session_manager").setup({
+  sessions_dir = Path:new(vim.fn.stdpath("data"), "sessions"),
+  path_replacer = "__",
+  colon_replacer = "++",
+  autoload_mode = require("session_manager.config").AutoloadMode.Disabled,
+  autosave_last_session = true,
+  autosave_ignore_not_normal = true,
+  autosave_ignore_dirs = {},
+  autosave_ignore_filetypes = {
+    "gitcommit",
+  },
+  autosave_ignore_buftypes = {},
+  autosave_only_in_session = true,
+  max_path_length = 80,
+})
+
+-- Command menu settings
+which_key = require("which-key")
+which_key.setup {
+    icons = {
+        breadcrumb = "»",
+        separator = "➜",
+        group = "+",
+    },
+    popup_mappings = {
+        scroll_down = "<c-d>",
+        scroll_up = "<c-u>",
+    },
+    window = {
+        border = "rounded",
+        position = "bottom",
+        margin = { 1, 0, 1, 0 },
+        padding = { 2, 2, 2, 2 },
+    },
+    layout = {
+        height = { min = 4, max = 25 },
+        width = { min = 20, max = 50 },
+        spacing = 3,
+        align = "left",
+    },
+    ignore_missing = true,
+    hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
+    show_help = true,
+    triggers = "auto",
+    triggers_blacklist = {
+        n = { "q", "w", "h", "j", "k", "l", "s", "t", "v", "x", "z" },
+        i = { "j", "k" },
+        v = { "j", "k" },
+    },
+}
+
+local opts = {
+    mode = "n",
+    prefix = "<leader>",
+    buffer = nil,
+    silent = true,
+    noremap = true,
+    nowait = true,
+}
+
+local mappings = {
+    ["b"] = { "<cmd>VimtexCompile<CR>", "build" },
+    ["v"] = { "<cmd>VimtexView<CR>", "view" },
+    s = {
+        name = "Manage Sessions",
+        s = { "<cmd>SessionManager save_current_session<CR>", "save" },
+        d = { "<cmd>SessionManager delete_session<CR>", "delete" },
+        l = { "<cmd>SessionManager load_session<CR>", "load" },
+    }
+}
+
+which_key.register(mappings, opts)
