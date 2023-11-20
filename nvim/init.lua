@@ -29,7 +29,9 @@ end
 
 local function plugins(use)
     use { "wbthomason/packer.nvim" }
+    use { "nvim-lua/plenary.nvim" }
 
+    -- Theme
     use {
         "sainnhe/everforest",
         config = function()
@@ -37,6 +39,7 @@ local function plugins(use)
         end,
     }
 
+    -- Startup screen
     use {
         "goolord/alpha-nvim",
         config = function()
@@ -57,18 +60,13 @@ local function plugins(use)
         end,
     }
 
+    -- Latex
     use { "lervag/vimtex" }
     use { "sirver/ultisnips" }
 
+    -- Telescope / Find files
     use { "nvim-treesitter/nvim-treesitter" }
-
-    use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.4',
-        requires = { 
-            { 'nvim-lua/plenary.nvim' },
-            { 'nvim-telescope/telescope-file-browser.nvim' },
-        },
-    }
+    use { "nvim-telescope/telescope.nvim" }
 
     if packer_bootstrap then
         print "Restart Neovim required"
@@ -78,11 +76,13 @@ end
 
 packer_init()
 
+-- Load plugins
 local packer = require "packer"
 packer.init(config)
 packer.startup(plugins)
 
-vim.g.mapleader = ' '
+-- General settings
+vim.g.mapleader = " "
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -101,26 +101,38 @@ vim.opt.expandtab = true
 
 vim.opt.signcolumn = "yes"
 
-vim.opt.spelllang = "en_us"
-vim.opt.spell = true
-vim.api.nvim_set_keymap("i", "<C-l>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { noremap = true, silent = true })
-
-vim.g['vimtex_view_general_viewer'] = 'zathura'
-vim.g['vimtex_quickfix_mode'] = 0
-vim.g['vimtex_syntax_enabled'] = 1
-vim.g['tex_conceal'] = 'abdmg'
-
-vim.g['UltiSnipsSnippetDirectories'] = { '~/.config/nvim/snippets' }
-vim.g['UltiSnipsExpandTrigger'] = '<tab>'
-vim.g['UltiSnipsJumpForwardTrigger'] = '<tab>'
-vim.g['UltiSnipsJumpBackwardTrigger'] = '<s-tab>'
-
 vim.opt.ignorecase = true
 vim.opt.hlsearch = false
 
 vim.opt.wrap = true
 vim.opt.breakindent = true
 
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.git_files, {})
+-- Spellcheck
+vim.opt.spelllang = "en_us"
+vim.opt.spell = true
+-- TODO: Make a new keymap for this
+-- vim.api.nvim_set_keymap("n", "<leader>ss", "<c-g>u<Esc>[s1z=`]a<c-g>u", { noremap = true, silent = true })
+
+-- VimTex settings
+vim.g["vimtex_view_general_viewer"] = "zathura"
+vim.g["vimtex_quickfix_mode"] = 0
+vim.g["vimtex_syntax_enabled"] = 1
+vim.g["tex_conceal"] = "abdmg"
+
+-- UltiSnips settings
+vim.g["UltiSnipsSnippetDirectories"] = { "~/.config/nvim/UltiSnips" }
+vim.g["UltiSnipsExpandTrigger"] = "<tab>"
+vim.g["UltiSnipsJumpForwardTrigger"] = "<tab>"
+vim.g["UltiSnipsJumpBackwardTrigger"] = "<s-tab>"
+
+-- Telescope settings
+require("telescope").setup {
+    defaults = {
+        prompt_prefix = "❯ ",
+        selection_caret = "❯ ",
+    },
+}
+
+local telescope_builtin = require("telescope.builtin")
+vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files)
+vim.keymap.set("n", "<leader>lg", telescope_builtin.live_grep)

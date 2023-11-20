@@ -1,5 +1,5 @@
 global !p
-def math() -> bool:
+def math():
     return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 endglobal
 
@@ -46,10 +46,6 @@ snippet mathhw "Math Homework Template" b
 $0
 
 \end{document}
-endsnippet
-
-snippet notes "Notes Template" b
-
 endsnippet
 
 snippet beg "begin{} / end{}" bA
