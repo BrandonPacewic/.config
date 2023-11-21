@@ -48,6 +48,7 @@ local opts = {
 local mappings = {
     ["b"] = { "<cmd>VimtexCompile<CR>", "build" },
     ["v"] = { "<cmd>VimtexView<CR>", "view" },
+    ["w"] = { "<cmd>wa!<CR>", "write" },
     f = {
         name = "Find",
         f = { "<cmd>Telescope find_files<CR>", "files" },
@@ -58,6 +59,12 @@ local mappings = {
         s = { "<cmd>SessionManager save_current_session<CR>", "save" },
         d = { "<cmd>SessionManager delete_session<CR>", "delete" },
         l = { "<cmd>SessionManager load_session<CR>", "load" },
+    },
+    q = {
+        name = "Quit",
+        q = { "<cmd>q<CR>", "quit" },
+        w = { "<cmd>wqa!<CR>", "write and quit" },
+        f = { "<cmd>qa!<CR>", "Force quit"},
     }
 }
 
