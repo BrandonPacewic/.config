@@ -94,10 +94,6 @@ snippet ali "Align" w
 \end{align*}$0
 endsnippet
 
-snippet nl "New Line" w
-\\\\
-endsnippet
-
 snippet bf "Bold" w
 \textbf{$1}$0
 endsnippet
@@ -106,8 +102,34 @@ snippet it "Italic" w
 \textit{$1}$0
 endsnippet
 
-snippet lnk "Link" w
-\href{$1}{$2}$0
+snippet link "Link" w
+\href{${1:Link}}{${2:Text}}$0
+endsnippet
+
+snippet qna "Question and Answer" w
+\begin{enumerate}[Q:]
+    \item $1
+        \begin{enumerate}[A:]
+            \item $2
+        \end{enumerate}$0
+\end{enumerate}
+endsnippet
+
+snippet qs "Question" w
+\begin{enumerate}[Q:]
+    \item $1
+\end{enumerate}$0
+endsnippet
+
+snippet ans "Answer" w
+\begin{enumerate}[A:]
+    \item $1
+\end{enumerate}$0
+endsnippet
+
+snippet np "New Page" w
+\newpage
+\pagebreak$0
 endsnippet
 
 context "math()"
@@ -226,6 +248,7 @@ snippet abs "absolute value" iA
 \lvert ${1:${VISUAL}} \rvert
 endsnippet
 
+context "math()"
 snippet ++ "plus or minus" iA
 \pm
 endsnippet
@@ -244,26 +267,32 @@ snippet ooo "\infty" iA
 \infty
 endsnippet
 
-snippet lft "Left" w
+context "math()"
+snippet lft "Left" iA
 \left
 endsnippet
 
-snippet rit "Right" w
+context "math()"
+snippet rit "Right" iA
 \right
 endsnippet
 
+context "math()"
 snippet beta "Beta" iA
 \beta
 endsnippet
 
+context "math()"
 snippet alpha "Alpha" iA
 \alpha
 endsnippet
 
+context "math()"
 snippet gamma "Gamma" iA
 \gamma
 endsnippet
 
+context "math()"
 snippet delta "Delta" iA
 \delta
 endsnippet
@@ -298,11 +327,13 @@ snippet csc "Cosecant" iA
 \csc
 endsnippet
 
+context "math()"
 snippet sympy "sympy block " w
 sympy $1 sympy$0
 endsnippet
 
 priority 10000
+context "math()"
 snippet 'sympy(.*)sympy' "evaluate sympy" wr
 `!p
 from sympy import *

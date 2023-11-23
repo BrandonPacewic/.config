@@ -65,7 +65,7 @@ local mappings = {
         q = { "<cmd>q<CR>", "quit" },
         w = { "<cmd>wqa!<CR>", "write and quit" },
         f = { "<cmd>qa!<CR>", "Force quit"},
-    }
+    },
 }
 
 which_key.setup(config)
