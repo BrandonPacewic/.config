@@ -48,7 +48,7 @@ $0
 \end{document}
 endsnippet
 
-snippet beg "begin{} / end{}" bA
+snippet beg "Begin End Block" bA
 \begin{$1}
     $2
 \end{$1}$0
@@ -144,7 +144,11 @@ snippet tat "Text" wA
 endsnippet
 
 snippet mk "Math" wA
-$1$0
+$${1:${VISUAL}}$$0
+endsnippet
+
+snippet tk "Theorem Math" wA
+\($1\)$0
 endsnippet
 
 snippet dm "Math" wA
@@ -159,53 +163,53 @@ snippet // "Fraction" iA
 endsnippet
 
 context "math()"
-snippet ff "Display fraction" iA
+snippet df "Display Fraction" iA
 \dfrac{$1}{$2}$0
 endsnippet
 
 context "math()"
-snippet '([A-Za-z])(\d)' "auto subscript" wrA
+snippet '([A-Za-z])(\d)' "Auto Subscript" wrA
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
 
 context "math()"
-snippet '([A-Za-z])_(\d\d)' "auto subscript 2" wrA
+snippet '([A-Za-z])_(\d\d)' "Auto Subscript 2" wrA
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
 endsnippet
 
 context "math()"
-snippet == "equals" iA
+snippet == "Equals" iA
 &=$1 \\\\
 endsnippet
 
 context "math()"
-snippet != "equals" iA
+snippet != "Not Equals" iA
 \neq 
 endsnippet
 
 context "math()"
-snippet sum "sum" w
+snippet sum "Sum" w
 \sum_{n=${1:1}}^{${2:\infty}} ${3:a_n z^n}
 endsnippet
 
 context "math()"
-snippet lim "limit" w
+snippet lim "Limit" w
 \lim_{${1:n} \to ${2:\infty}} ${3:f(x)}
 endsnippet
 
 context "math()"
-snippet int "integral" w
+snippet int "Integral" w
 \int_{${1:a}}^{${2:b}} ${3:f(x)} \, dx
 endsnippet
 
 context "math()"
-snippet sq "\sqrt{}" iA
+snippet sq "Square Root" iA
 \sqrt[${1:2}]{${2:${VISUAL}}}$0
 endsnippet
 
 priority 10000
 context "math()"
-snippet 'sqrt\[(\d)\]{(.*)}' "smart sqrt" wrA
+snippet 'sqrt\[(\d)\]{(.*)}' "Smart Square Root" wrA
 `!p
 if match.group(1) == '2':
     snip.rv = 'sqrt{' + match.group(2) + '}'
@@ -215,7 +219,7 @@ else:
 endsnippet
 
 context "math()"
-snippet ov "\overline{}" iA
+snippet ov "Overline" iA
 \overline{${1:${VISUAL}}}$0
 endsnippet
 
@@ -230,41 +234,41 @@ snippet cb "^3" iA
 endsnippet
 
 context "math()"
-snippet td "to the ... power" iA
+snippet td "To The" iA
 ^{$1}$0
 endsnippet
 
 context "math()"
-snippet >= "greater than or equal to" iA
+snippet >= "Greater Than Or Equal To" iA
 \geq
 endsnippet
 
 context "math()"
-snippet <= "less than or equal to" iA
+snippet <= "Less Than Or Equal To" iA
 \leq
 endsnippet
 
 context "math()"
-snippet abs "absolute value" iA
+snippet abs "Absolute Value" iA
 \lvert ${1:${VISUAL}} \rvert
 endsnippet
 
 context "math()"
-snippet ++ "plus or minus" iA
+snippet ++ "Plus / Minus" iA
 \pm
 endsnippet
 
 context "math()"
-snippet -> "to" iA
+snippet -> "To" iA
 \to
 endsnippet
 
 context "math()"
-snippet <-> "left right arrow" iA
+snippet <-> "Left Right Arrow" iA
 \leftrightarrow
 endsnippet
 
-snippet ooo "\infty" iA
+snippet ooo "Infty" iA
 \infty
 endsnippet
 
@@ -329,13 +333,13 @@ snippet csc "Cosecant" iA
 endsnippet
 
 context "math()"
-snippet sympy "sympy block " w
+snippet sympy "Sympy Block " w
 sympy $1 sympy$0
 endsnippet
 
 priority 10000
 context "math()"
-snippet 'sympy(.*)sympy' "evaluate sympy" wr
+snippet 'sympy(.*)sympy' "Evaluate Sympy Block" wr
 `!p
 from sympy import *
 x, y, z, t = symbols('x y z t')
@@ -377,6 +381,6 @@ snippet plotad "Plot / Graph (Advanced)" w
 \end{figure}$0
 endsnippet
 
-snippet aplt "Add plot" w
+snippet aplt "Add Plot" w
 \addplot[domain=$1:$2, samples=${3:100}, color=${4:black}]{$5};$0
 endsnippet
