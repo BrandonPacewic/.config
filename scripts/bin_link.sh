@@ -1,3 +1,5 @@
+#!/bin/bash
+
 chmod u+x $1
 
 if ! [[ -f $2 ]]; then
