@@ -50,7 +50,7 @@ endsnippet
 
 snippet beg "Begin End Block" bA
 \begin{$1}
-    $2
+    ${2:${VISUAL}}
 \end{$1}$0
 endsnippet
 
@@ -143,17 +143,13 @@ snippet tat "Text" wA
 \text{$1}$0
 endsnippet
 
-snippet mk "Math" wA
-$${1:${VISUAL}}$$0
+snippet mk "Inline Math" wA
+\(${1:${VISUAL}}\)$0
 endsnippet
 
-snippet tk "Theorem Math" wA
-\($1\)$0
-endsnippet
-
-snippet dm "Math" wA
+snippet dm "Display Math" wA
 \[
-    $1
+    ${1:${VISUAL}}
 \]$0
 endsnippet
 
@@ -194,12 +190,25 @@ endsnippet
 
 context "math()"
 snippet lim "Limit" w
-\lim_{${1:n} \to ${2:\infty}} ${3:f(x)}
+\Lim_{${1:n} \to ${2:\infty}} ${3:f(x)}
 endsnippet
 
 context "math()"
 snippet int "Integral" w
 \int_{${1:a}}^{${2:b}} ${3:f(x)} \, dx
+endsnippet
+
+context "math()"
+snippet cases "Cases" w
+\begin{cases}
+    $1 ,& $2 \\\\
+    $3 ,& $4 \\\\$5
+\end{cases}$0
+endsnippet
+
+context "math()"
+snippet case "Case" w
+$1 ,& $2 \\\\$0
 endsnippet
 
 context "math()"
@@ -268,18 +277,18 @@ snippet <-> "Left Right Arrow" iA
 \leftrightarrow
 endsnippet
 
+context "math()"
 snippet ooo "Infty" iA
 \infty
 endsnippet
 
-context "math()"
-snippet lft "Left" iA
-\left
+snippet /( "Grouping" iA
+\left$1 \right$0
 endsnippet
 
 context "math()"
-snippet rit "Right" iA
-\right
+snippet theta "Theta" iA
+\theta
 endsnippet
 
 context "math()"
