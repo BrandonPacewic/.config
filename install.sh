@@ -11,17 +11,18 @@ git submodule update --init --recursive
 
 sudo ./ProblemManager/install.sh
 
-if ! [[ -f "../.zshrc" ]]; then
-    ln .zshrc ../.zshrc
-fi
+files=(
+    ".zshrc"
+    ".tmux.conf"
+    "git/.gitconfig"
+    ".zprofile"
+)
 
-if ! [[ -f "../.tmux.conf" ]]; then
-    ln .tmux.conf ../.tmux.conf
-fi
-
-if ! [[ -f "../.gitconfig" ]]; then
-    ln git/.gitconfig ../.gitconfig
-fi
+for file in "${files[@]}"; do
+    if ! [[ -f "~/$file" ]]; then
+        ln $file ~/$file
+    fi
+done
 
 for file in "scripts"/*; do
     if [[ -f "$file" ]]; then
