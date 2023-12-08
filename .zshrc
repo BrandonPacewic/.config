@@ -66,6 +66,7 @@ command -v colorls > /dev/null && alias ls='colorls --sd --gs' && \
 	alias tree='colorls --tree'
 
 alias tmr='tmux respawn-pane -k'
+alias tmks='tmux kill-session'
 alias tmka='tmux kill-server'
 alias tmo='tmux detach'
 
