@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Run this install script to setup global commands and move other files to their required directories.
-
 if [[ "$EUID" -ne 0 ]]; then 
     echo "Please run as root."
     exit
