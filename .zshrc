@@ -51,6 +51,8 @@ else
 	export EDITOR='vi'
 fi
 
+export VISUAL=$EDITOR
+
 alias cp='cp -v'
 alias rm='rm -iv'
 alias mv='mv -iv'
