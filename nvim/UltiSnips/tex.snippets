@@ -196,12 +196,12 @@ endsnippet
 
 context "math()"
 snippet lim "Limit" w
-\Lim_{${1:n} \to ${2:\infty}} ${3:f(x)}
+\Lim_{${1:n} \to ${2:\infty}}$0
 endsnippet
 
 context "math()"
 snippet int "Integral" w
-\int_{${1:a}}^{${2:b}} ${3:f(x)} \, dx
+\int_{${1:a}}^{${2:b}} ${3:f(x)} \, dx$0
 endsnippet
 
 context "math()"
@@ -273,11 +273,13 @@ snippet ++ "Plus / Minus" iA
 \pm
 endsnippet
 
+priority 1000
 context "math()"
 snippet -> "To" iA
 \to
 endsnippet
 
+priority 10000
 context "math()"
 snippet <-> "Left Right Arrow" iA
 \leftrightarrow
@@ -288,6 +290,7 @@ snippet ooo "Infty" iA
 \infty
 endsnippet
 
+context "math()"
 snippet /( "Grouping" iA
 \left$1 \right$0
 endsnippet
@@ -313,8 +316,8 @@ snippet gamma "Gamma" iA
 endsnippet
 
 context "math()"
-snippet delta "Delta" iA
-\delta
+snippet delta "Caps Delta" iA
+\Delta
 endsnippet
 
 context "math()"
@@ -347,6 +350,7 @@ snippet csc "Cosecant" iA
 \csc
 endsnippet
 
+priority 1000
 context "math()"
 snippet sympy "Sympy Block " w
 sympy $1 sympy$0
