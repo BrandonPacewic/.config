@@ -215,7 +215,7 @@ endsnippet
 
 context "math()"
 snippet int "Integral" w
-\int_{${1:a}}^{${2:b}} ${3:f(x)} \, dx$0
+\Int_{${1:a}}^{${2:b}} ${3:f(x)} \, dx$0
 endsnippet
 
 context "math()"
@@ -326,62 +326,97 @@ snippet ooo "Infty" iA
 endsnippet
 
 context "math()"
-snippet /( "Grouping" iA
-\left$1 \right$0
+snippet in "Element of" iA
+\in
 endsnippet
 
 context "math()"
-snippet theta "Theta" iA
+snippet gp( "Dynamic () group" iA
+\left( $1 \right)$0
+endsnippet
+
+context "math()"
+snippet gp[ "Dynamic [] group" iA
+\left[ $1 \right]$0
+endsnippet
+
+context "math()"
+snippet bg( "Big () group" iA
+\Bigl( $1 \Bigr)$0
+endsnippet
+
+context "math()"
+snippet bg[ "Big [] group" iA
+\Bigl[ $1 \Bigr]$0
+endsnippet
+
+context "math()"
+snippet bgg( "Bigg () group" iA
+\Biggl( $1 \Biggr)$0
+endsnippet
+
+context "math()"
+snippet bgg[ "Bigg [] group" iA
+\Biggl[ $1 \Biggr]$0
+endsnippet
+
+context "math()"
+snippet pi "Pi" A
+\pi
+endsnippet
+
+context "math()"
+snippet theta "Theta" A
 \theta
 endsnippet
 
 context "math()"
-snippet beta "Beta" iA
+snippet beta "Beta" A
 \beta
 endsnippet
 
 context "math()"
-snippet alpha "Alpha" iA
+snippet alpha "Alpha" A
 \alpha
 endsnippet
 
 context "math()"
-snippet gamma "Gamma" iA
+snippet gamma "Gamma" A
 \gamma
 endsnippet
 
 context "math()"
-snippet delta "Caps Delta" iA
+snippet delta "Caps Delta" A
 \Delta
 endsnippet
 
 context "math()"
-snippet sin "Sine" iA
+snippet sin "Sine" A
 \sin
 endsnippet
 
 context "math()"
-snippet cos "Cosine" iA
+snippet cos "Cosine" A
 \cos
 endsnippet
 
 context "math()"
-snippet tan "Tangent" iA
+snippet tan "Tangent" A
 \tan
 endsnippet
 
 context "math()"
-snippet cot "Cotangent" iA
+snippet cot "Cotangent" A
 \cot
 endsnippet
 
 context "math()"
-snippet sec "Secant" iA
+snippet sec "Secant" A
 \sec
 endsnippet
 
 context "math()"
-snippet csc "Cosecant" iA
+snippet csc "Cosecant" A
 \csc
 endsnippet
 
