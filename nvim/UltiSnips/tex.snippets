@@ -54,22 +54,32 @@ snippet beg "Begin End Block" bA
 \end{$1}$0
 endsnippet
 
-snippet section "Section" bA
-\section{$1}
-$0
+snippet sec "Section" bA
+\section{$1}$0
 endsnippet
 
-snippet subsection "Subsection" bA
-\subsection{$1}
-$0
+snippet subsec "Subsection" bA
+\subsection{$1}$0
+endsnippet
+
+snippet subsubsec "Subsubsection" bA
+\subsubsection{$1}$0
 endsnippet
 
 snippet ftnt "Footnote" w
 \footnote{\label{$1}$2}$0
 endsnippet
 
-snippet ref "Reference" w
+snippet lab "Label" w
+\label{$1}$0
+endsnippet
+
+snippet ref "Reference Theorem" w
 \ref{$1}$0
+endsnippet
+
+snippet reft "Reference" w
+\textit{$1 (Theorem \ref{$2})}$0
 endsnippet
 
 snippet itms "Itemize" bA
@@ -94,16 +104,59 @@ snippet ali "Align" w
 \end{align*}$0
 endsnippet
 
+snippet def "Definition" w
+\begin{definition}[$1]
+    $2
+\end{definition}$0
+endsnippet
+
 snippet theo "Theorem" w
 \begin{theorem}[$1]
     $2
 \end{theorem}$0
 endsnippet
 
-snippet def "Definition" w
-\begin{definition}[$1]
-    $2
-\end{definition}$0
+snippet pf "Proof" w
+\begin{proof}
+    $1
+\end{proof}$0
+endsnippet
+
+snippet lect "Lecture + Section" w
+\begin{lecture}
+    \subsubsection{Lecture $1}
+    $0
+\end{lecture}
+endsnippet
+
+snippet lec "Lecture" w
+\begin{lecture}
+    $0
+\end{lecture}
+endsnippet
+
+snippet nt "Note" w
+\begin{note}
+    $0
+\end{note}
+endsnippet
+
+snippet rem "Remark" w
+\begin{remark}
+    $0
+\end{remark}
+endsnippet
+
+snippet ex "Example" w
+\begin{example}
+    $1
+\end{example}$0
+endsnippet
+
+snippet ru "Rule" w
+\begin{myrule}
+    $1
+\end{myrule}$0
 endsnippet
 
 snippet bf "Bold" w
@@ -326,7 +379,7 @@ snippet ooo "Infty" iA
 endsnippet
 
 context "math()"
-snippet in "Element of" iA
+snippet ein "Element of" iA
 \in
 endsnippet
 
@@ -361,62 +414,62 @@ snippet bgg[ "Bigg [] group" iA
 endsnippet
 
 context "math()"
-snippet pi "Pi" A
+snippet pi "Pi" iA
 \pi
 endsnippet
 
 context "math()"
-snippet theta "Theta" A
+snippet theta "Theta" iA
 \theta
 endsnippet
 
 context "math()"
-snippet beta "Beta" A
+snippet beta "Beta" iA
 \beta
 endsnippet
 
 context "math()"
-snippet alpha "Alpha" A
+snippet alpha "Alpha" iA
 \alpha
 endsnippet
 
 context "math()"
-snippet gamma "Gamma" A
+snippet gamma "Gamma" iA
 \gamma
 endsnippet
 
 context "math()"
-snippet delta "Caps Delta" A
+snippet delta "Caps Delta" iA
 \Delta
 endsnippet
 
 context "math()"
-snippet sin "Sine" A
+snippet sin "Sine" iA
 \sin
 endsnippet
 
 context "math()"
-snippet cos "Cosine" A
+snippet cos "Cosine" iA
 \cos
 endsnippet
 
 context "math()"
-snippet tan "Tangent" A
+snippet tan "Tangent" iA
 \tan
 endsnippet
 
 context "math()"
-snippet cot "Cotangent" A
+snippet cot "Cotangent" iA
 \cot
 endsnippet
 
 context "math()"
-snippet sec "Secant" A
+snippet sec "Secant" iA
 \sec
 endsnippet
 
 context "math()"
-snippet csc "Cosecant" A
+snippet csc "Cosecant" iA
 \csc
 endsnippet
 

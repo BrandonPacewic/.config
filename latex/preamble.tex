@@ -6,6 +6,9 @@
     linkcolor=blue,
 }
 
+\usepackage[usenames,dvipsnames]{xcolor}
+\newcommand{\Black}[1]{\textcolor{black}{#1}}
+
 \usepackage{amsmath}
 \usepackage{enumerate}
 \usepackage[margin=0.8in]{geometry}
@@ -27,16 +30,70 @@
 \usepackage{titlesec}
 \titleformat{\chapter}[display]
     {\normalfont\bfseries}{}{0pt}{\Huge}
+\titlespacing\subsubsection{0pt}{0pt}{0pt}
 
-\usepackage{ntheorem}
-\theoremstyle{break}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage[framemethod=TikZ]{mdframed}
 
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{definition}{Definition}[section]
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+    headpunct={\newline},
+    bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=ForestGreen, backgroundcolor=ForestGreen!5,
+    }
+]{thmgreenline}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black},
+    headpunct={\newline},
+    bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!5,
+    }
+]{thmblueline}
+
+\declaretheoremstyle[
+    headfont=\bfseries\sffamily\color{NavyBlue!70!black},
+    headpunct={\newline},
+    bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=NavyBlue, backgroundcolor=NavyBlue!1,
+    }
+]{thmproof}
+
+\declaretheoremstyle[
+    headformat={},
+    headpunct={},
+    bodyfont=\normalfont,
+    mdframed={
+        linewidth=2pt,
+        rightline=false, topline=false, bottomline=false,
+        linecolor=RawSienna, backgroundcolor=RawSienna!2,
+    }
+]{thmlecture}
+
+\declaretheorem[style=thmgreenline, name=Definition]{definition}
+\declaretheorem[style=thmblueline, name=Theorem]{theorem}
+\declaretheorem[style=thmlecture]{lecture}
+\declaretheorem[style=thmblueline, numbered=no, name=Note]{note}
+\declaretheorem[style=thmblueline, numbered=no, name=Remark]{remark}
+\declaretheorem[style=thmblueline, numbered=no, name=Example]{example}
+\declaretheorem[style=thmblueline, numbered=no, name=Rule]{myrule}
+
+\declaretheorem[style=thmproof, numbered=no, name=Proof]{replacementproof}
+\renewenvironment{proof}{\vspace{-16.5pt}\replacementproof}{\endreplacementproof}
 
 \newcommand{\Lim}{\displaystyle\lim}
 \newcommand{\Sum}{\displaystyle\sum}
 \newcommand{\Int}{\displaystyle\int}
-\newcommand{\Example}{\noindent\textbf{Example}}
+\newcommand{\Example}{\noindent\textbf{Example}} % No longer used, here for backwards compatibility with older notes.
 \newcommand{\Startlectures}{}
 \newcommand{\Endlectures}{}
