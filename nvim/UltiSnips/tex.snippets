@@ -124,8 +124,7 @@ endsnippet
 
 snippet lect "Lecture + Section" w
 \begin{lecture}
-    \subsubsection{Lecture $1}
-    $0
+    \subsubsection{Lecture $1}$0
 \end{lecture}
 endsnippet
 
@@ -342,6 +341,11 @@ snippet td "To The" iA
 endsnippet
 
 context "math()"
+snippet __ "Subscript" iA
+_{$1}$0
+endsnippet
+
+context "math()"
 snippet >= "Greater Than Or Equal To" iA
 \geq
 endsnippet
@@ -371,6 +375,18 @@ priority 10000
 context "math()"
 snippet <-> "Left Right Arrow" iA
 \leftrightarrow
+endsnippet
+
+priority 1000
+context "math()"
+snippet => "Right Arrow" iA
+\Rightarrow
+endsnippet
+
+priority 10000
+context "math()"
+snippet <=> "Left Right Arrow" iA
+\Leftrightarrow
 endsnippet
 
 context "math()"
