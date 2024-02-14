@@ -5,9 +5,7 @@ if [[ "$EUID" -ne 0 ]]; then
     exit
 fi
 
-git submodule update --init --recursive
-
-python -m pip install branp-cli/
+git submodule update --init
 
 files=(
     ".zshrc"
@@ -21,6 +19,8 @@ for file in "${files[@]}"; do
         ln $file ~/$file
     fi
 done
+
+python -m pip install branp-cli/
 
 for file in "scripts"/*; do
     if [[ -f "$file" ]]; then
