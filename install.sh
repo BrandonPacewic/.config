@@ -7,7 +7,7 @@ fi
 
 git submodule update --init --recursive
 
-sudo ./ProblemManager/install.sh
+python -m pip install branp-cli/
 
 files=(
     ".zshrc"
