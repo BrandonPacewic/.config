@@ -1,0 +1,12 @@
+# PCC Formatting according to the CS 161 & 162 Style Guide
+Language: Cpp
+BasedOnStyle: Google
+IndentWidth: 3
+UseTab: Never
+ColumnLimit: 79
+BraceWrapping:
+  BeforeElse: true
+DerivePointerAlignment: false
+PointerAlignment: Left
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: false
