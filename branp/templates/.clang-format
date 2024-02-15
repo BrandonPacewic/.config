@@ -12,6 +12,13 @@ AlwaysBreakTemplateDeclarations: Yes
 BreakBeforeBinaryOperators: NonAssignment
 ColumnLimit: 120
 IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^".*\.h"'
+    Priority: 1
+  - Regex: '^<.*\.h>'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3
 IndentCaseLabels: true
 IndentWidth: 4
 IndentWrappedFunctionNames: true
