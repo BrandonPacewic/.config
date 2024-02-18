@@ -15,4 +15,37 @@ vim.opt.wrap = true
 vim.opt.breakindent = true
 vim.opt.spelllang = "en_us"
 vim.opt.spell = true
+
+-- Autocorrect previous misspelled word
 vim.api.nvim_set_keymap("i", "<C-l>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { noremap = true, silent = true })
+
+-- show trailing whitespace
+vim.cmd([[
+  autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+  match ExtraWhitespace /\s\+$/
+  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+]])
+
+-- strip trailing whitespace
+vim.cmd([[
+fun! StripTrailingWhitespace()
+    " Only strip if the b:noStripeWhitespace variable isn't set
+    if exists('b:noStripWhitespace')
+        return
+    endif
+    %s/\s\+$//e
+endfun
+autocmd BufWritePre * call StripTrailingWhitespace()
+]])
+
+vim.cmd [[autocmd! BufNewFile,BufRead Tiltfile set filetype=tiltfile syntax=python]]
+
+-- Highlight on yank
+vim.cmd [[
+  augroup YankHighlight
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+  augroup end
+]]
