@@ -1,32 +1,19 @@
 #!/bin/bash
 
+set -e
+
 if [[ "$EUID" -ne 0 ]]; then 
     echo "Please run as root."
-    exit
+    exit 1
 fi
 
 git submodule update --init
 
-files=(
-    ".zshrc"
-    ".tmux.conf"
-    "git/.gitconfig"
-    ".zprofile"
-)
-
-for file in "${files[@]}"; do
-    if ! [[ -f "~/$file" ]]; then
-        ln $file ~/$file
-    fi
+for file in "zsh" "tmux" "git" "brew"; do
+    stow --verbose --target="$HOME" --restow "$file"
 done
 
+brew bundle install --file=Brewfile
 python -m pip install branp-cli/
-
-for file in "scripts"/*; do
-    if [[ -f "$file" ]]; then
-        filename=$(basename "$file")
-        sudo scripts/bin_link.sh $file $filename
-    fi
-done
 
 echo "Done!"
