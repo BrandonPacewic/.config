@@ -3,66 +3,25 @@ def math():
     return vim.eval('vimtex#syntax#in_mathzone()') == '1'
 endglobal
 
-snippet template "Basic Template" b
-\documentclass[a4paper]{report}
-\input{preamble}
-
-\title{\Huge{$1}\\\\$2}
-\author{\huge{Brandon Pacewic}}
-\date{$3}
-
-\begin{document}
-
-\maketitle
-$4\tableofcontents
-\newpage
-\pagebreak
-
-$0
-
-\end{document}
-endsnippet
-
-snippet mathhw "Math Homework Template" b
-\documentclass[a4paper]{report}
-\input{preamble}
-
-\pagestyle{fancy}
-\lhead{$1}
-\rhead{$2}
-
-\begin{document}
-
-\begin{center}
-    \begin{tabular}{|l|l|l|}
-        \hline
-        First Name & Last Name & OSU Student ID \# \\\\
-        \hline
-        Brandon & Pacewic & $3 \\\\
-        \hline
-    \end{tabular}
-\end{center}
-
-$0
-
-\end{document}
-endsnippet
-
 snippet beg "Begin End Block" bA
 \begin{$1}
     ${2:${VISUAL}}
 \end{$1}$0
 endsnippet
 
-snippet sec "Section" bA
+snippet chapt "Chapter" b
+\chapter{$1}$0
+endsnippet
+
+snippet sec "Section" b
 \section{$1}$0
 endsnippet
 
-snippet subsec "Subsection" bA
+snippet subsec "Subsection" b
 \subsection{$1}$0
 endsnippet
 
-snippet subsubsec "Subsubsection" bA
+snippet subsubsec "Subsubsection" b
 \subsubsection{$1}$0
 endsnippet
 
@@ -201,7 +160,7 @@ snippet np "New Page" w
 endsnippet
 
 context "math()"
-snippet tat "Text" wA
+snippet tat "Text" w
 \text{$1}$0
 endsnippet
 
@@ -215,11 +174,11 @@ snippet dm "Display Math" wA
 \]$0
 endsnippet
 
-snippet hsp "hspace" wA
+snippet hsp "hspace" w
 \hspace{${1:2}mm}$0
 endsnippet
 
-snippet multicol "Multi column" wA
+snippet multicol "Multi column" w
 \begin{multicols}{${1:2}}
     ${2:${VISUAL}}
 \end{multicols}$0
@@ -236,12 +195,12 @@ snippet ff "Display Fraction" iA
 endsnippet
 
 context "math()"
-snippet '([A-Za-z])(\d)' "Auto Subscript" wrA
+snippet '([A-Za-z])(\d)' "Auto Subscript" wr
 `!p snip.rv = match.group(1)`_`!p snip.rv = match.group(2)`
 endsnippet
 
 context "math()"
-snippet '([A-Za-z])_(\d\d)' "Auto Subscript 2" wrA
+snippet '([A-Za-z])_(\d\d)' "Auto Subscript 2" wr
 `!p snip.rv = match.group(1)`_{`!p snip.rv = match.group(2)`}
 endsnippet
 
@@ -265,26 +224,37 @@ snippet lim "Limit" w
 \Lim_{${1:n} \to ${2:\infty}}$0
 endsnippet
 
+priority 100
 context "math()"
 snippet int "Integral" w
 \Int_{${1:a}}^{${2:b}} ${3:f(x)} \, dx$0
 endsnippet
 
+priority 1000
+context "math()"
+snippet dint "Definite Integral" w
+\Int ${1:f(x)} \, dx$0
+endsnippet
+
+priority 1000
 context "math()"
 snippet cint "Closed interval" w
 [${1:a}, \, ${2:b}]$0
 endsnippet
 
+priority 1000
 context "math()"
 snippet oint "Open interval" w
 (${1:a}, \, ${2:b})$0
 endsnippet
 
+priority 10000
 context "math()"
 snippet ocint "Open closed interval" w
 (${1:a}, \, ${2:b}]$0
 endsnippet
 
+priority 10000
 context "math()"
 snippet coint "Closed open interval" w
 [${1:a}, \, ${2:b})$0
@@ -305,7 +275,7 @@ endsnippet
 
 priority 1000
 context "math()"
-snippet sq "Square Root" iA
+snippet sq "Square Root" i
 \sqrt[${1:2}]{${2:${VISUAL}}}$0
 endsnippet
 
@@ -321,7 +291,12 @@ else:
 endsnippet
 
 context "math()"
-snippet ov "Overline" iA
+snippet '(f|h|g)\'?(x|t)' "Smart make function" wr
+`!p snip.rv = f"{match.group(0)[:-1]}({match.group(0)[-1]})"`
+endsnippet
+
+context "math()"
+snippet ov "Overline" i
 \overline{${1:${VISUAL}}}$0
 endsnippet
 
@@ -353,6 +328,22 @@ endsnippet
 context "math()"
 snippet <= "Less Than Or Equal To" iA
 \leq
+endsnippet
+
+context "math()"
+snippet ln "ln" iA
+\Ln
+endsnippet
+
+priority 1000
+context "math()"
+snippet vert "Vertical Line" iA
+\vert
+endsnippet
+
+priority 10000
+snippet \rvert "Right Vertical Line" iA
+\rvert
 endsnippet
 
 context "math()"
@@ -400,6 +391,11 @@ snippet ein "Element of" iA
 endsnippet
 
 context "math()"
+snippet aa "For All" iA
+\forall
+endsnippet
+
+context "math()"
 snippet gp( "Dynamic () group" iA
 \left( $1 \right)$0
 endsnippet
@@ -431,27 +427,27 @@ endsnippet
 
 context "math()"
 snippet pi "Pi" iA
-\pi
+\Pi
 endsnippet
 
 context "math()"
 snippet theta "Theta" iA
-\theta
+\Theta
 endsnippet
 
 context "math()"
 snippet beta "Beta" iA
-\beta
+\Beta
 endsnippet
 
 context "math()"
 snippet alpha "Alpha" iA
-\alpha
+\Alpha
 endsnippet
 
 context "math()"
 snippet gamma "Gamma" iA
-\gamma
+\Gamma
 endsnippet
 
 context "math()"
@@ -460,33 +456,33 @@ snippet delta "Caps Delta" iA
 endsnippet
 
 context "math()"
-snippet sin "Sine" iA
-\sin
+snippet sin "Sine Trigger" iA
+\Sin
 endsnippet
 
 context "math()"
 snippet cos "Cosine" iA
-\cos
+\Cos
 endsnippet
 
 context "math()"
 snippet tan "Tangent" iA
-\tan
+\Tan
 endsnippet
 
 context "math()"
 snippet cot "Cotangent" iA
-\cot
+\Cot
 endsnippet
 
 context "math()"
 snippet sec "Secant" iA
-\sec
+\Sec
 endsnippet
 
 context "math()"
 snippet csc "Cosecant" iA
-\csc
+\Csc
 endsnippet
 
 priority 1000
@@ -508,6 +504,21 @@ snip.rv = eval('latex(' + match.group(1).replace('\\', '') \
     .replace('^', '**') \
     .replace('{', '(') \
     .replace('}', ')') + ')')
+`
+endsnippet
+
+priority 1000
+snippet math "Mathematica Block" w
+math $1 math$0
+endsnippet
+
+priority 10000
+snippet 'math(.*)math' "Evaluate Mathmatica Block" wr
+`!p
+import subprocess
+code = match.group(1)
+code = 'ToString[' + code + ', TeXForm]'
+snip.rv = subprocess.check_output(['wolframscript', '-code', code])
 `
 endsnippet
 

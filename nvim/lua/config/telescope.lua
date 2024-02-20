@@ -1,5 +1,6 @@
 local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then
+    print "Telescope not installed."
     return
 end
 
@@ -11,7 +12,3 @@ local config = {
 }
 
 telescope.setup(config)
-
--- local builtin = require "telescope.builtin"
--- vim.keymap.set("n", "<leader>ff", telescope_builtin.find_files)
--- vim.keymap.set("n", "<leader>lg", telescope_builtin.live_grep)

@@ -10,10 +10,10 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
         install_path,
     }
 
-    vim.cmd [[packadd packer.nvim]]
+    vim.cmd([[packadd packer.nvim]])
 end
 
-vim.cmd "autocmd BufWritePost plugins.lua source <afile> | PackerCompile"
+vim.cmd("autocmd BufWritePost plugins.lua source <afile> | PackerCompile")
 
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
@@ -34,7 +34,9 @@ local function plugins(use)
     use { "nvim-lua/plenary.nvim" }
 
     -- Theme
+    -- use { "tomasiser/vim-code-dark" }
     use { "sainnhe/everforest" }
+    -- use { "dylanaraps/wal" }
 
     -- Startup Screen
     use { "goolord/alpha-nvim" }

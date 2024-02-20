@@ -1,5 +1,6 @@
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then
+    print "Which-key not installed."
     return
 end
 

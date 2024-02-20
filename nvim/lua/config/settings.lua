@@ -16,6 +16,8 @@ vim.opt.breakindent = true
 vim.opt.spelllang = "en_us"
 vim.opt.spell = true
 
+-- vim.cmd("set background=dark")
+
 -- Autocorrect previous misspelled word
 vim.api.nvim_set_keymap("i", "<C-l>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { noremap = true, silent = true })
 

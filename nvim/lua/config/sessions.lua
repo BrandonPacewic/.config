@@ -1,6 +1,7 @@
 local status_ok_sm, session_manager = pcall(require, "session_manager")
 local status_ok_path, Path = pcall(require, "plenary.path")
 if not status_ok_sm or not status_ok_path then
+    print "Session Manager not installed."
     return
 end
 
