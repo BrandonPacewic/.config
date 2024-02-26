@@ -25,6 +25,10 @@ snippet subsubsec "Subsubsection" b
 \subsubsection{$1}$0
 endsnippet
 
+snippet subf "Subfile" b
+\subfile{$1}$0
+endsnippet
+
 snippet ftnt "Footnote" w
 \footnote{\label{$1}$2}$0
 endsnippet
@@ -60,7 +64,7 @@ endsnippet
 snippet ali "Align" w
 \begin{align*}
     $1
-\end{align*}$0
+.\end{align*}$0
 endsnippet
 
 snippet def "Definition" w
@@ -171,7 +175,7 @@ endsnippet
 snippet dm "Display Math" wA
 \[
     ${1:${VISUAL}}
-\]$0
+.\]$0
 endsnippet
 
 snippet hsp "hspace" w
@@ -455,34 +459,76 @@ snippet delta "Caps Delta" iA
 \Delta
 endsnippet
 
+priority 1000
 context "math()"
-snippet sin "Sine Trigger" iA
+snippet sin "Sine" iA
 \Sin
 endsnippet
 
+priority 1000
 context "math()"
 snippet cos "Cosine" iA
 \Cos
 endsnippet
 
+priority 1000
 context "math()"
 snippet tan "Tangent" iA
 \Tan
 endsnippet
 
+priority 1000
 context "math()"
 snippet cot "Cotangent" iA
 \Cot
 endsnippet
 
+priority 1000
 context "math()"
 snippet sec "Secant" iA
 \Sec
 endsnippet
 
+priority 1000
 context "math()"
 snippet csc "Cosecant" iA
 \Csc
+endsnippet
+
+priority 10000
+context "math()"
+snippet arcsin "Arcsine" iA
+\Arcsin
+endsnippet
+
+priority 10000
+context "math()"
+snippet arccos "Arccosine" iA
+\Arccos
+endsnippet
+
+priority 10000
+context "math()"
+snippet arctan "Arctangent" iA
+\Arctan
+endsnippet
+
+priority 10000
+context "math()"
+snippet arccot "Arccotangent" iA
+\Arccot
+endsnippet
+
+priority 10000
+context "math()"
+snippet arcsec "Arcsecant" iA
+\Arcsec
+endsnippet
+
+priority 10000
+context "math()"
+snippet arccsc "Arccosecant" iA
+\Arccsc
 endsnippet
 
 priority 1000
