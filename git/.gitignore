@@ -1,7 +1,7 @@
 # Global git ignores
 
 # MacOS
-.DS_Store
+.DS_Store*
 
 # Test files
 [Nn]otes.txt
@@ -17,6 +17,36 @@
 # Sample testing
 *_input.txt
 *_output.txt
+
+# Python
+*.pyc
+__pycache__/
+*.egg-info/
+
+# C/C++
+*.o
+*.a
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Tex files
+*.dvi
+*.log
+*.ps
+*.aux
 
 # Misc
 *.thm

@@ -4,7 +4,27 @@
 [core]
 	editor = nvim
 	excludesfile = ~/.config/git/.gitignore
+[mergetool "nvim"]
+	cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
+[merge]
+	tool = nvim
+	log = true
+	conflictstyle = zdiff3
+[mergetool]
+	prompt = false
+[push]
+	default = current
+	autoSetupRemote = true
 [pull]
+	default = current
 	rebase = false
+[hub]
+	protocol = ssh
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
 [advice]
 	statusHints = false
+[init]
+	defaultBranch = mega
+[submodule]
+	recurse = true

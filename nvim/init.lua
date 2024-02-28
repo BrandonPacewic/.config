@@ -1,4 +1,4 @@
-local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+local install_path = vim.fn.stdpath("data" .. "/site/pack/packer/start/packer.nvim")
 
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     packer_bootstrap = vim.fn.system {
@@ -13,9 +13,6 @@ if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     vim.cmd([[packadd packer.nvim]])
 end
 
--- TODO: Not sure what this is for at the moment.
--- vim.cmd("autocmd BufWritePost plugins.lua source <afile> | PackerCompile")
-
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
     print "Restart NeoVim required."
@@ -24,10 +21,13 @@ end
 
 packer.init({
     display = {
+        compact = false,
         open_fn = function()
             return require("packer.util").float({ border = "rounded" })
         end,
+        show_all_info = true,
     },
+    autoremove = true,
 })
 
 packer.startup(function(use)
@@ -35,12 +35,8 @@ packer.startup(function(use)
     use { "nvim-lua/plenary.nvim" }
 
     -- Theme
-    -- use { "tomasiser/vim-code-dark" }
-    use { "sainnhe/everforest" }
-    -- use { "dylanaraps/wal" }
-
-    -- Startup Screen
-    use { "goolord/alpha-nvim" }
+    -- use { "sainnhe/everforest" }
+    use { "navarasu/onedark.nvim" }
 
     -- Latex
     use { "lervag/vimtex" }
@@ -56,6 +52,14 @@ packer.startup(function(use)
     -- Command Menu
     use { "folke/which-key.nvim" }
 
+    -- Autopairs
+    use {
+        "windwp/nvim-autopairs",
+        config = function()
+            require("nvim-autopairs").setup()
+        end,
+    }
+
     if packer_bootstrap then
         require("packer").sync()
     end
@@ -68,6 +72,7 @@ vim.opt.relativenumber = true
 vim.opt.mouse = "a"
 vim.opt.syntax = "on"
 vim.opt.updatetime = 300
+vim.opt.scrolloff = 5
 vim.opt.encoding = "utf-8"
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -81,76 +86,11 @@ vim.opt.spelllang = "en_us"
 vim.opt.spell = true
 
 -- Themes
--- vim.cmd("colorscheme codedark")
-vim.cmd("colorscheme everforest")
--- vim.cmd("colorscheme wal")
+local onedark = require("onedark")
+onedark.setup({ style = "warmer" })
+onedark.load()
 
--- Alpha startup screen
-local dashboard = require("alpha.themes.dashboard")
-dashboard.section.header.val = {
-    [[      ,:: :::::::                                                     ]],
-    [[    , ;::;::::::                                                      ]],
-    [[   .: :::::::::                                                       ]],
-    [[  :::::::::::::                                                       ]],
-    [[  ::::::::::::: ,.::::                                                ]],
-    [[ . ::::::::::::                                               ,..::"""]],
-    [[,:.::::::::::::                                             ..;:::"'  ]],
-    [[::::::::::::::;                                           :;::::"     ]],
-    [[ ::::::::::::::                                          ,:::::       ]],
-    [[ ::::::::::::::;                                        ;:;::"        ]],
-    [[,':::::::::::::::                                     .;:;::"         ]],
-    [[;;':::::::::::::;.                                  ,;:::::'          ]],
-    [[':;':::::::::::::;                                 ;:::::::           ]],
-    [[ ::;;:::::::::::::;;                             ,;:::::::'           ]],
-    [[ '::::::::::::::::::..                          ::::::::::            ]],
-    [[  '":::::::::::::::::;.                        ;;::::::::'            ]],
-    [[ :::;:::::::::::::::::::.                   ,;:::::::::::             ]],
-    [[  :::;::::::::::::::::::::                  ;::::::::::::             ]],
-    [[ ::'::::::::::::::::::::::;.               ::::::::::::::             ]],
-    [[ ;:;'::::::::::::::::::::::;              ,:::::::::::::;             ]],
-    [[ "::;;::::::::::::::::::::::;             ;::::::::::::::             ]],
-    [[ ;'::::::::::::::::::::::::::.           ,::;:::::::::::::            ]],
-    [[::;;::::::::::::::::::::::::::           ;:::::::::::::::;            ]],
-    [[ :::::::::::::::::::::::::::::          ::::::::::::::::::            ]],
-    [[:::::::::::::::::::::::::::::           ;::::::::::::::::'            ]],
-    [[::::::::::::::::::::::::::::'          ::;::::::::::::::              ]],
-    [[ :::::::::::::::::::::::::::        ,..;::::::::::::::"               ]],
-    [[ :::::::::::::::::::::::::::        ::""""::;:::::::"                 ]],
-    [[ :::::::::::::::::::::::::::.    ,.;.;::' ;"""""""":.;....            ]],
-    [[  :::::::::::::::::::::::::::;..::::::::,."           ''::;.          ]],
-    [[  ':::::::::::::::::::::::::::::::::::::'".:          ''.;::;.        ]],
-    [[   '"::::::::::::::::::::::::::::::::::;.:              ::""'";;      ]],
-    [[    ..::::::::::::::::::::::::::::::::::::;.            ......;:.     ]],
-    [[     "":::::::::::::::::::::::::::::::::. ::    ;;:""":;.:;.  ::'     ]],
-    [[       ':::::::::::::::::::::::::::::::::::'" ;:"'      """:::        ]],
-    [[        '::::::::::::::::::::::::::::::::::..::                       ]],
-    [[           '"""""::::::::::::::::::::::::::::"                        ]],
-    [[                '"":::::::::::::::::::::::::                          ]],
-    [[               ..;::::::::::::::::::::::::::                          ]],
-    [[        .....;:::::::::::::::::::::::::::"":...                       ]],
-    [[     ..::::::"":::::::::::::::::::::'"":,;.;"::                       ]],
-    [[ ..;:::"""'   ;;:":::::::::::::::::""'.;:::; ''                       ]],
-    [[ :::"'      ;;"",:::::::::::::::::":;.;::::::              ,...       ]],
-    [[ "::.   ,.;'"...::::::::::::::"""":;::'::::::;         ,  ;::::..     ]],
-    [[  '':...'"  ;::';::::::::;:":" ;;;:::;;;:;::::;       ;:::::"":::     ]],
-    [[   ':"' ,..::'.;:::::"::"::;'  :"":::::::::::::;.....;:.;':   '"'     ]],
-    [[    ':..;:"' ::::".;  ;' ;::   '' '":::::::::::":::::::::;;:          ]],
-    [[      ":;  ,;""",;"'.;: ;";:        '"""":::""   ,::::::::::          ]],
-    [[       '"::::.;::" ;:: ;;;:'                     :::"  ""';'          ]],
-    [[           :::::;;.:';;":"'                     ':::                  ]],
-    [[                '""""'                           '"""'                ]],
-}
-
-dashboard.section.footer.val = "Earn your worth."
-dashboard.section.buttons.val = {}
-
-dashboard.section.footer.opts.hl = "Constant"
-dashboard.section.header.opts.hl = "Include"
-dashboard.section.buttons.opts.hl = "Function"
-dashboard.section.buttons.opts.hl_shortcut = "Type"
-dashboard.opts.opts.noautocmd = true
-
-require("alpha").setup(dashboard.opts)
+-- vim.cmd("colorscheme everforest")
 
 -- Session manager
 local Path = require("plenary.path")
@@ -236,26 +176,32 @@ local which_key_opts = {
 }
 
 local which_key_mappings = {
-    ["b"] = { "<cmd>VimtexCompile<CR>", "build" },
-    ["v"] = { "<cmd>VimtexView<CR>", "view" },
-    ["w"] = { "<cmd>wa!<CR>", "write" },
+    ["b"] = { "<cmd>VimtexCompile<CR>", "Build Vimtex" },
+    ["v"] = { "<cmd>VimtexView<CR>", "View Vimtex" },
+    ["w"] = { "<cmd>wa!<CR>", "Write" },
     f = {
         name = "Find",
-        f = { "<cmd>Telescope find_files<CR>", "files" },
-        g = { "<cmd>Telescope live_grep<CR>", "grep" },
+        f = { "<cmd>Telescope find_files<CR>", "Files" },
+        g = { "<cmd>Telescope live_grep<CR>", "Live Grep" },
     },
     s = {
         name = "Manage Sessions",
-        s = { "<cmd>SessionManager save_current_session<CR>", "save" },
-        d = { "<cmd>SessionManager delete_session<CR>", "delete" },
-        l = { "<cmd>SessionManager load_session<CR>", "load" },
+        s = { "<cmd>SessionManager save_current_session<CR>", "Save" },
+        d = { "<cmd>SessionManager delete_session<CR>", "Delete" },
+        l = { "<cmd>SessionManager load_session<CR>", "Load" },
     },
     q = {
         name = "Quit",
-        q = { "<cmd>q<CR>", "quit" },
-        w = { "<cmd>wqa!<CR>", "write and quit" },
+        q = { "<cmd>q<CR>", "Quit" },
+        w = { "<cmd>wqa!<CR>", "Write and quit" },
         f = { "<cmd>qa!<CR>", "Force quit"},
     },
+    v = {
+        name = "Visual",
+        s = { "<cmd>set colorcolumn=80<CR>", "Short color column" },
+        l = { "<cmd>set colorcolumn=120<CR>", "Long color column" },
+        c = { "<cmd>set colorcolumn=0<CR>", "Clear color column" },
+    }
 }
 
 which_key.register(which_key_mappings, which_key_opts)
