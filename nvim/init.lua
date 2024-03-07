@@ -31,11 +31,10 @@ packer.init({
 })
 
 packer.startup(function(use)
+    -- Package manager
     use { "wbthomason/packer.nvim" }
-    use { "nvim-lua/plenary.nvim" }
 
     -- Theme
-    -- use { "sainnhe/everforest" }
     use { "navarasu/onedark.nvim" }
 
     -- Latex
@@ -43,8 +42,34 @@ packer.startup(function(use)
     use { "sirver/ultisnips" }
 
     -- Telescope
-    use { "nvim-telescope/telescope.nvim" }
-    use { "nvim-treesitter/nvim-treesitter" }
+    use {
+        "nvim-telescope/telescope.nvim",
+        requires = {
+            "nvim-lua/popup.nvim",
+            "nvim-telescope/telescope-frecency.nvim",
+            "nvim-lua/plenary.nvim",
+            { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+            "nvim-telescope/telescope-file-browser.nvim",
+            { "nvim-telescope/telescope-dap.nvim", requires = { "mfussenegger/nvim-dap" }},
+            "nvim-telescope/telescope-symbols.nvim",
+        },
+    }
+
+    -- Treesitter
+    -- Not sure why the order of the plugins is required to be this way.
+    use {
+        "nvim-treesitter/nvim-treesitter-context",
+        requires = { "nvim-treesitter/nvim-treesitter" },
+    }
+
+    use {
+        "nvim-treesitter/nvim-treesitter",
+        requires = {
+            "nvim-treesitter/nvim-treesitter-refactor",
+            "nvim-treesitter/nvim-treesitter-textobjects",
+        },
+        run = ":TSUpdate",
+    }
 
     -- Session Manager
     use { "Shatur/neovim-session-manager" }
@@ -60,6 +85,37 @@ packer.startup(function(use)
         end,
     }
 
+    -- Autocomplete
+    use {
+        "hrsh7th/nvim-cmp",
+        requires = {
+            "hrsh7th/cmp-cmdline",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-buffer",
+            { "tzachar/cmp-fuzzy-path", requires = { "tzachar/fuzzy.nvim" }},
+        },
+    }
+
+    -- LSP
+    use { "neovim/nvim-lspconfig" }
+    use { "ray-x/lsp_signature.nvim" }
+    use { "onsails/lspkind-nvim" }
+    use { "simrat39/symbols-outline.nvim" }
+    use { "j-hui/fidget.nvim", tag = "legacy" }
+    use {
+        "williamboman/mason-lspconfig.nvim",
+        requires = { "williamboman/mason.nvim" },
+    }
+
+    -- Comment
+    use {
+        "numToStr/Comment.nvim",
+        config = function()
+            require("Comment").setup({})
+        end,
+    }
+
     if packer_bootstrap then
         require("packer").sync()
     end
@@ -70,14 +126,14 @@ vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
-vim.opt.scrolloff = 8 
+vim.opt.scrolloff = 8
 vim.opt.scroll = 20
 vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.opt.breakindent = true
 vim.opt.showbreak = "↪"
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.conceallevel = 0
 vim.opt.concealcursor = "niv"
 
@@ -87,7 +143,7 @@ vim.opt.hlsearch = true
 vim.opt.termguicolors = true
 vim.opt.cursorcolumn = false
 vim.opt.cursorline = false
-vim.opt.colorcolumn = "120"
+vim.opt.colorcolumn = "119"
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
 vim.opt.spellsuggest = "best"
@@ -107,7 +163,7 @@ vim.opt.showmode = true -- Could change for lualine
 vim.opt.ruler = true
 vim.opt.rulerformat = "%l,%v  %P"
 vim.opt.report = 3
-vim.opt.verbose = 1
+vim.opt.verbose = 0
 vim.opt.more = true
 vim.opt.confirm = true
 vim.opt.errorbells = true
@@ -230,12 +286,121 @@ require("Session_manager").setup({
 })
 
 -- Telescope
-require("telescope").setup({
+local telescope = require("telescope")
+telescope.setup({
+    extensions = {
+        fzf = {
+            fuzzy = true,
+            override_generic_sorter = true,
+            override_file_sorter = true,
+            case_mode = "smart_case",
+        },
+        file_browser = {
+            hijack_netrw = true,
+        },
+    },
     defaults = {
         prompt_prefix = "❯ ",
         selection_caret = "❯ ",
     },
+    pickers = {
+        find_files = {
+            find_command = { "rg", "--files", "--hidden", "--no-binary" },
+        },
+        buffers = {
+            ignore_current_buffer = true,
+            sort_mru = true,
+        },
+    },
 })
+
+telescope.load_extension("fzf")
+telescope.load_extension("file_browser")
+telescope.load_extension("dap")
+
+-- Treesitter
+require("nvim-treesitter.configs").setup({
+    ensure_installed = {
+        "c",
+        "cpp",
+        "lua",
+        "python",
+        "vim",
+    },
+    highlight = { enable = true },
+})
+
+require("treesitter-context").setup({ enable = true })
+
+-- Autocomplete
+local cmp = require("cmp")
+
+cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn["UltiSnips#Anon"](args.body)
+        end,
+    },
+    mapping = {
+        ["<Tab>"] = function(fallback)
+            if vim.fn["UltiSnips#CanExpandSnippet"]() == 1 then
+                vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-R>=UltiSnips#ExpandSnippet()<CR>", true, true, true), "n")
+            else
+                cmp.mapping.confirm({ select = true })(fallback)
+            end
+        end,
+        ["<C-e>"] = cmp.mapping.close(),
+        ["<Up>"] = cmp.mapping.select_prev_item(),
+        ["<Down>"] = cmp.mapping.select_next_item(),
+    },
+    sources = {
+        { name = "nvim_lsp" },
+        { name = "ultisnips" },
+        { name = "fuzzy_path", options = { fd_cmd = { "fd", "-d", "20", "-p", "--no-ignore" }}},
+        { name = "buffer" },
+    },
+})
+
+-- LSP settings
+local servers = {
+    clangd = {
+        filetypes = { "c", "cpp" },
+    },
+}
+
+local cmp_lsp = require("cmp_nvim_lsp")
+local lsp_config = require("lspconfig")
+
+for server_name, server_config in pairs(servers) do
+    local capabilities = cmp_lsp.default_capabilities()
+    local on_attach = cmp_lsp.on_attach
+    local server_opts = {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 150,
+        },
+    }
+
+    for x, y in pairs(server_config) do
+        server_opts[x] = y
+    end
+
+    lsp_config[server_name].setup(server_opts)
+end
+
+require("mason").setup({
+    ui = {
+        icons = {
+            package_installed = "",
+            package_pending = "",
+            package_uninstalled = "",
+        }
+    }
+})
+
+require("mason-lspconfig").setup({ automatic_installation = true })
+require("fidget").setup({})
 
 -- Snippet settings
 vim.g["UltiSnipsSnippetDirectories"] = { "~/.config/nvim/UltiSnips" }
@@ -298,6 +463,7 @@ local which_key_mappings = {
     ["b"] = { "<cmd>VimtexCompile<CR>", "Build Vimtex" },
     ["v"] = { "<cmd>VimtexView<CR>", "View Vimtex" },
     ["w"] = { "<cmd>wa!<CR>", "Write" },
+    ["q"] = { "<cmd>q<CR>", "Quit" },
     f = {
         name = "Find",
         f = { "<cmd>Telescope find_files<CR>", "Files" },
@@ -309,21 +475,22 @@ local which_key_mappings = {
         d = { "<cmd>SessionManager delete_session<CR>", "Delete" },
         l = { "<cmd>SessionManager load_session<CR>", "Load" },
     },
-    q = {
-        name = "Quit",
-        q = { "<cmd>q<CR>", "Quit" },
-        w = { "<cmd>wqa!<CR>", "Write and quit" },
-        f = { "<cmd>qa!<CR>", "Force quit"},
-    },
     v = {
         name = "Visual",
-        s = { "<cmd>set colorcolumn=80<CR>", "Short color column" },
-        l = { "<cmd>set colorcolumn=120<CR>", "Long color column" },
+        s = { "<cmd>set colorcolumn=79<CR>", "Short color column" },
+        l = { "<cmd>set colorcolumn=119<CR>", "Long color column" },
         c = { "<cmd>set colorcolumn=0<CR>", "Clear color column" },
-    }
+    },
+    p = {
+        name = "Packer",
+        s = { "<cmd>PackerSync<CR>", "Sync" },
+    },
 }
 
 which_key.register(which_key_mappings, which_key_opts)
+
+-- Hotkeys
+vim.keymap.set("v", "<C-c>", '"+y')
 
 -- Show trailing whitespace
 vim.cmd([[
