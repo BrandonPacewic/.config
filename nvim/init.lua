@@ -56,17 +56,12 @@ packer.startup(function(use)
     }
 
     -- Treesitter
-    -- Not sure why the order of the plugins is required to be this way.
-    use {
-        "nvim-treesitter/nvim-treesitter-context",
-        requires = { "nvim-treesitter/nvim-treesitter" },
-    }
-
     use {
         "nvim-treesitter/nvim-treesitter",
         requires = {
             "nvim-treesitter/nvim-treesitter-refactor",
             "nvim-treesitter/nvim-treesitter-textobjects",
+            "nvim-treesitter/nvim-treesitter-context",
         },
         run = ":TSUpdate",
     }
