@@ -1,3 +1,13 @@
 snippet beginend "Begin and End" w
 $1.begin(), $1.end()$0
 endsnippet
+
+snippet headed "Header include guard" w
+#pragma once
+#ifndef ${1:HEADER_GUARD}_
+#define $1
+
+$0
+
+#endif // $1
+endsnippet
