@@ -52,3 +52,4 @@ a.out*
 
 # Misc
 *.thm
+.clangd
