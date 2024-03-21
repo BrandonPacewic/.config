@@ -295,7 +295,7 @@ else:
 endsnippet
 
 context "math()"
-snippet '(f|h|g)\'?(x|t)' "Smart make function" wr
+snippet '(f|h|g)\'?(x|t|y)' "Smart make function" wr
 `!p snip.rv = f"{match.group(0)[:-1]}({match.group(0)[-1]})"`
 endsnippet
 
@@ -400,32 +400,32 @@ snippet aa "For All" iA
 endsnippet
 
 context "math()"
-snippet gp( "Dynamic () group" iA
+snippet gp() "Dynamic () group" iA
 \left( $1 \right)$0
 endsnippet
 
 context "math()"
-snippet gp[ "Dynamic [] group" iA
+snippet gp[] "Dynamic [] group" iA
 \left[ $1 \right]$0
 endsnippet
 
 context "math()"
-snippet bg( "Big () group" iA
+snippet bg() "Big () group" iA
 \Bigl( $1 \Bigr)$0
 endsnippet
 
 context "math()"
-snippet bg[ "Big [] group" iA
+snippet bg[] "Big [] group" iA
 \Bigl[ $1 \Bigr]$0
 endsnippet
 
 context "math()"
-snippet bgg( "Bigg () group" iA
+snippet bgg() "Bigg () group" iA
 \Biggl( $1 \Biggr)$0
 endsnippet
 
 context "math()"
-snippet bgg[ "Bigg [] group" iA
+snippet bgg[] "Bigg [] group" iA
 \Biggl[ $1 \Biggr]$0
 endsnippet
 
